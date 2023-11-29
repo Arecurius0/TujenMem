@@ -51,7 +51,7 @@ public class Statistics
     }
     catch (Exception e)
     {
-      DebugWindow.LogError($"Error writing to file: {e.ToString()}");
+      DebugWindow.LogError($"Error writing to file: {e}");
     }
   }
 }
