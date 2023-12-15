@@ -2,3 +2,4 @@
 Errors.txt
 bin
 obj
+*.DotSettings.user

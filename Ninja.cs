@@ -1,7 +1,6 @@
 using System;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -223,9 +222,7 @@ public class Ninja
         }
         else
         {
-            {
-                ImGui.TextColored(new System.Numerics.Vector4(1, 0, 0, 1), "Invalid");
-            }
+            ImGui.TextColored(new System.Numerics.Vector4(1, 0, 0, 1), "Invalid");
         }
     }
 

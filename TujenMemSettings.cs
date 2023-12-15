@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using ExileCore.Shared.Attributes;
 using ExileCore.Shared.Interfaces;
@@ -77,7 +76,7 @@ public class TujenMemSettings : ISettings
                         whiteListInput = "";
                     }
 
-                    ImGui.BeginChild("##WhitelistList", new System.Numerics.Vector2(0, 200), true);
+                    ImGui.BeginChild("##WhitelistList", new System.Numerics.Vector2(0, 200), ImGuiChildFlags.Border);
                     foreach (var s in Whitelist)
                     {
                         if (ImGui.Selectable(s, s == whiteListSelected))
@@ -116,7 +115,7 @@ public class TujenMemSettings : ISettings
                         blackListInput = "";
                     }
 
-                    ImGui.BeginChild("##BlackListList", new System.Numerics.Vector2(0, 200), true);
+                    ImGui.BeginChild("##BlackListList", new System.Numerics.Vector2(0, 200), ImGuiChildFlags.Border);
                     foreach (var s in Blacklist)
                     {
                         if (ImGui.Selectable(s, s == blackListSelected))
@@ -169,7 +168,7 @@ public class TujenMemSettings : ISettings
                         Ninja.SetDirty();
                     }
 
-                    ImGui.BeginChild("##CustomPricesList", new System.Numerics.Vector2(0, 200), true);
+                    ImGui.BeginChild("##CustomPricesList", new System.Numerics.Vector2(0, 200), ImGuiChildFlags.Border);
                     foreach (var s in CustomPrices)
                     {
                         var t = s.Item2 != null ? s.Item2.ToString() : s.Item3;
@@ -221,7 +220,7 @@ public class TujenMemSettings : ISettings
                     }
                     var t2 = String.Join(",", itemMappingSelected.Item1) + itemMappingSelected.Item2;
 
-                    ImGui.BeginChild("##ItemMappingsList", new System.Numerics.Vector2(0, 200), true);
+                    ImGui.BeginChild("##ItemMappingsList", new System.Numerics.Vector2(0, 200), ImGuiChildFlags.Border);
                     foreach (var s in ItemMappings)
                     {
                         var t1 = String.Join(",", s.Item1) + s.Item2;
@@ -269,13 +268,21 @@ public class TujenMemSettings : ISettings
             ItemMappings.Add((new List<string>() { "HeistBlueprint", "Prohibited Library" }, "Replicas Blueprint"));
             ItemMappings.Add((new List<string>() { "HeistBlueprint", "Tunnels" }, "Unusual Blueprint"));
             ItemMappings.Add((new List<string>() { "HeistContract", "Deception" }, "Good Contract"));
+            ItemMappings.Add((new List<string>() { "HeistContract", "Perception" }, "Bad Contract"));
+            ItemMappings.Add((new List<string>() { "HeistContract", "Agility" }, "Bad Contract"));
+            ItemMappings.Add((new List<string>() { "HeistContract", "Lockpicking" }, "Bad Contract"));
+            ItemMappings.Add((new List<string>() { "HeistContract", "Demolition" }, "Bad Contract"));
+            ItemMappings.Add((new List<string>() { "HeistContract", "Engineering" }, "Bad Contract"));
+            ItemMappings.Add((new List<string>() { "HeistContract", "Trap Disarmament" }, "Bad Contract"));
+            ItemMappings.Add((new List<string>() { "HeistContract", "Brute Force" }, "Bad Contract"));
+            ItemMappings.Add((new List<string>() { "HeistContract", "Counter-Thaumaturgy" }, "Bad Contract"));
         }
 
         if (CustomPrices.Count == 0)
         {
             CustomPrices.Add(("Chaos Orb", 1, ""));
             CustomPrices.Add(("Good Contract", 10, ""));
-            CustomPrices.Add(("Ok Contract", 2, ""));
+            CustomPrices.Add(("Bad Contract", 1, ""));
             CustomPrices.Add(("Enchanted Blueprint", 3, ""));
             CustomPrices.Add(("Trinkets Blueprint", 2, ""));
             CustomPrices.Add(("Replicas Blueprint", 15, ""));
@@ -389,10 +396,17 @@ public class HaggleMultiplierSettings
     public RangeNode<float> Try1 { get; set; } = new RangeNode<float>(0.72f, 0.0f, 1.0f);
 
     [Menu("Try 2", "Multiplier for second haggle attempt")]
-    public RangeNode<float> Try2 { get; set; } = new RangeNode<float>(0.89f, 0.0f, 1.0f);
+    public RangeNode<float> Try2 { get; set; } = new RangeNode<float>(0.5f, 0.0f, 1.0f);
 
     [Menu("Try 3", "Multiplier for third haggle attempt")]
-    public RangeNode<float> Try3 { get; set; } = new RangeNode<float>(0.95f, 0.0f, 1.0f);
+    public RangeNode<float> Try3 { get; set; } = new RangeNode<float>(0.7f, 0.0f, 1.0f);
+
+    [Menu("Multiplier Mode", "Wether the multiplier applies as percentage of 0 to max or current tries min to max")]
+    public ListNode MultiplierMode { get; set; } = new ListNode
+    {
+        Values = new List<string> { "Zero To Max", "Min to Max" },
+        Value = "Min To Max"
+    };
 }
 
 [Submenu(CollapsedByDefault = true)]
